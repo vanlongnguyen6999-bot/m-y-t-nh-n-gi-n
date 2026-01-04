@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máy tính đơn giản</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; padding-top: 50px; }
+        .calculator {
+            width: 280px;
+            border: 4px solid #333;
+            padding: 15px;
+            background-color: #fff;
+        }
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 26px;
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 5px 10px;
+            border: 2px solid #333;
+            box-sizing: border-box;
+            color: blue;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+        button {
+            cursor: pointer;
+            height: 55px;
+            font-size: 22px;
+            font-weight: bold;
+            border: 2px solid #333;
+            background-color: white;
+            border-radius: 5px;
+        }
+        button:active { background-color: white; }
+        .num{color: blue;}
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        
+        <div class="buttons">
+            <button class = "num" onclick="press('1')">1</button>
+            <button class = "num" onclick="press('2')">2</button>
+            <button class = "num" onclick="press('3')">3</button>
+            <button class = "num" onclick="press('+')">+</button>
+
+            <button class = "num" onclick="press('4')">4</button>
+            <button class = "num" onclick="press('5')">5</button>
+            <button class = "num" onclick="press('6')">6</button>
+            <button class = "num" onclick="press('-')">-</button>
+
+            <button class = "num" onclick="press('7')">7</button>
+            <button class = "num" onclick="press('8')">8</button>
+            <button class = "num" onclick="press('9')">9</button>
+            <button class = "num" onclick="press('*')">*</button>
+
+            <button class = "num" onclick="clearAll()">AC</button>
+            <button class = "num" onclick="press('0')">0</button>
+            <button class = "num" onclick="calculate()">=</button>
+            <button class = "num" onclick="press('/')">/</button>
+        </div>
+    </div>
+
+    <script>
+        let expression = ""; // Biến lưu trữ toàn bộ chuỗi phép tính
+
+        // Hàm này dùng chung cho cả số và phép tính
+        function press(val) {
+            let display = document.getElementById("display");
+            // Nối giá trị mới vào chuỗi hiện tại
+            expression += val;
+            display.value = expression;
+        }
+        function calculate() {
+            let display = document.getElementById("display");
+            if (expression === "") return;
+            try {
+                let result = eval(expression);
+                display.value = result;
+                expression = result.toString();// cập nhật result hiện tại để tiếp tục tính toán
+            } catch{
+                alert("Phép tính không hợp lệ!");
+                clearAll();
+            }
+        }
+        function clearAll() {
+            expression = "";
+            document.getElementById("display").value = "";
+        }
+    </script>
+</body>
+</html>
